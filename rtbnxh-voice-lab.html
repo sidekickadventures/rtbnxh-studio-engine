@@ -273,24 +273,6 @@
 
     <div class="main-container">
         <div class="input-section">
-            <label>Your HuggingFace Token (free at huggingface.co)</label>
-            <input type="password" id="tokenInput" placeholder="hf_xxxxxxxxxxxx" style="
-                width: 100%;
-                background: var(--bg-dark);
-                border: 2px solid #2a2a3a;
-                border-radius: 8px;
-                padding: 12px 15px;
-                color: var(--text);
-                font-size: 0.9rem;
-                margin-bottom: 10px;
-            ">
-            <div style="font-size: 0.7rem; color: var(--text-dim);">
-                🔒 Your token stays in your browser. Nothing is stored or sent to us.
-            </div>
-            <button class="btn" style="margin-top: 10px;" onclick="saveToken()">✓ Apply Token</button>
-        </div>
-
-        <div class="input-section">
             <label>Enter Your Text</label>
             <textarea id="textInput" placeholder="Type something here... The future of music is on-chain."></textarea>
             <div class="quick-texts">
@@ -352,21 +334,43 @@
         // User provides their own HuggingFace token for privacy
         let userToken = '';
 
-        // CORS proxy for HuggingFace API
-        const CORS_PROXY = 'https://corsproxy.io/?';
+        // Use browser's built-in SpeechSynthesis API (no API key needed!)
+        function generateWithBrowserSpeech(text, voiceType) {
+            return new Promise((resolve, reject) => {
+                if (!('speechSynthesis' in window)) {
+                    reject(new Error('Browser does not support speech synthesis'));
+                    return;
+                }
 
-        function saveToken() {
-            const token = document.getElementById('tokenInput').value.trim();
-            if (!token) {
-                showStatus('Please enter a token first', 'error');
-                return;
-            }
-            if (!token.startsWith('hf_')) {
-                showStatus('Invalid token format. Should start with hf_', 'error');
-                return;
-            }
-            userToken = token;
-            showStatus('Token saved! Now enter text and click Generate.', 'success');
+                // Stop any current speech
+                window.speechSynthesis.cancel();
+
+                const utterance = new SpeechSynthesisUtterance(text);
+                
+                // Set voice based on type
+                const voices = window.speechSynthesis.getVoices();
+                
+                if (voiceType === 'male') {
+                    utterance.voice = voices.find(v => v.name.includes('Male') && v.lang.startsWith('en')) || voices[0];
+                } else if (voiceType === 'female') {
+                    utterance.voice = voices.find(v => v.name.includes('Female') && v.lang.startsWith('en')) || voices[0];
+                } else if (voiceType === 'british') {
+                    utterance.voice = voices.find(v => v.name.includes('UK') || v.name.includes('British')) || voices[0];
+                } else if (voiceType === 'robot') {
+                    utterance.voice = voices.find(v => v.name.includes('Computer') || v.name.includes('SAM')) || voices[0];
+                } else {
+                    utterance.voice = voices[0];
+                }
+
+                utterance.rate = 1;
+                utterance.pitch = 1;
+                utterance.volume = 1;
+
+                // Play the speech
+                window.speechSynthesis.speak(utterance);
+                
+                resolve(); // No audio to return since we're playing directly
+            });
         }
         
         // Voice configurations - using models that work with HF Inference API
@@ -426,24 +430,16 @@
 
             const btn = document.getElementById('generateBtn');
             btn.disabled = true;
-            btn.innerHTML = '<span>⏳</span> Generating...';
+            btn.innerHTML = '<span>⏳</span> Speaking...';
             
-            showStatus('Generating speech...', 'loading');
+            showStatus('Speaking...', 'loading');
             document.getElementById('audioSection').classList.remove('visible');
 
             try {
-                const voiceConfig = VOICE_CONFIGS[currentVoiceId];
-                const audioBase64 = await generateWithModel(text, voiceConfig.model);
-
-                // Play the audio
-                const audio = document.getElementById('audioPlayer');
-                audio.src = 'data:audio/wav;base64,' + audioBase64;
+                // Use browser's built-in speech synthesis
+                await generateWithBrowserSpeech(text, currentVoiceId);
                 
-                document.getElementById('audioSection').classList.add('visible');
-                showStatus('Audio generated successfully!', 'success');
-                
-                // Auto-play
-                audio.play();
+                showStatus('Done!', 'success');
                 
             } catch (error) {
                 console.error('Error:', error);
