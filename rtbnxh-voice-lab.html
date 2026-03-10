@@ -376,7 +376,7 @@
             { id: 'british', name: 'British', model: 'microsoft/speecht5_tts', icon: '🎤' },
             { id: 'neutral', name: 'Neutral', model: 'microsoft/speecht5_tts', icon: '🎤' },
             { id: 'robot', name: 'Robot', model: 'facebook/fastspeech2-en-ljspeech', icon: '🤖' },
-            { id: 'smooth', name: 'Smooth', model: '叙旧/sam', icon: '🌊' }
+            { id: 'smooth', name: 'Smooth', model: 'facebook/fastspeech2-en-ljspeech', icon: '🌊' }
         ];
 
         let currentVoiceId = 'male';
@@ -387,7 +387,7 @@
             'british': { model: 'microsoft/speecht5_tts' },
             'neutral': { model: 'microsoft/speecht5_tts' },
             'robot': { model: 'facebook/fastspeech2-en-ljspeech' },
-            'smooth': { model: '叙旧/sam' }
+            'smooth': { model: 'facebook/fastspeech2-en-ljspeech' }
         };
 
         function setText(text) {
@@ -485,7 +485,7 @@
                 if (response.status === 503) {
                     throw new Error('Model loading... Try again in 20 seconds.');
                 }
-                throw new Error('Voice model unavailable. Try another voice.');
+                throw new Error('Error: ' + response.status + ' - Try a different voice.');
             }
 
             const arrayBuffer = await response.arrayBuffer();
