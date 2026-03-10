@@ -12,13 +12,10 @@
             --accent-cyan: #00ffff;
             --accent-magenta: #ff00ff;
             --accent-green: #00ff66;
-            --accent-orange: #ff6600;
             --text: #ffffff;
             --text-dim: #888;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: var(--bg-dark);
@@ -27,10 +24,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             padding: 20px;
             background: linear-gradient(180deg, #0a0a0f 0%, #12121f 50%, #0a0a0f 100%);
         }
-
         h1 {
             font-size: 2rem;
             margin-bottom: 5px;
@@ -41,240 +38,61 @@
             text-transform: uppercase;
             letter-spacing: 3px;
         }
-
-        .subtitle {
-            color: var(--text-dim);
-            font-size: 0.85rem;
-            margin-bottom: 25px;
-            letter-spacing: 2px;
-        }
-
+        .subtitle { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 25px; letter-spacing: 2px; }
         .main-container {
             background: var(--bg-panel);
             border-radius: 16px;
             padding: 30px;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5), 
-                        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
             border: 1px solid #2a2a3a;
             width: 100%;
             max-width: 600px;
         }
-
-        .input-section {
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            color: var(--accent-cyan);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
+        .input-section { margin-bottom: 25px; }
+        label { display: block; color: var(--accent-cyan); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
         textarea {
-            width: 100%;
-            height: 120px;
-            background: var(--bg-dark);
-            border: 2px solid #2a2a3a;
-            border-radius: 8px;
-            padding: 15px;
-            color: var(--text);
-            font-size: 1rem;
-            resize: none;
-            transition: border-color 0.2s;
+            width: 100%; height: 120px; background: var(--bg-dark); border: 2px solid #2a2a3a;
+            border-radius: 8px; padding: 15px; color: var(--text); font-size: 1rem; resize: none;
         }
-
-        textarea:focus {
-            outline: none;
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
-        }
-
-        textarea::placeholder {
-            color: var(--text-dim);
-        }
-
-        .voice-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
+        textarea:focus { outline: none; border-color: var(--accent-cyan); }
+        .voice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 25px; }
         .voice-btn {
-            background: var(--bg-light);
-            border: 2px solid #2a2a3a;
-            border-radius: 8px;
-            padding: 15px 10px;
-            color: var(--text-dim);
-            cursor: pointer;
-            transition: all 0.2s;
-            text-align: center;
+            background: var(--bg-light); border: 2px solid #2a2a3a; border-radius: 8px;
+            padding: 15px 10px; color: var(--text-dim); cursor: pointer; text-align: center;
         }
-
-        .voice-btn:hover {
-            border-color: var(--accent-magenta);
-            color: var(--text);
-        }
-
-        .voice-btn.active {
-            border-color: var(--accent-cyan);
-            background: rgba(0, 255, 255, 0.1);
-            color: var(--accent-cyan);
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-        }
-
-        .voice-icon {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-            display: block;
-        }
-
-        .voice-name {
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .controls {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
+        .voice-btn:hover { border-color: var(--accent-magenta); color: var(--text); }
+        .voice-btn.active { border-color: var(--accent-cyan); background: rgba(0, 255, 255, 0.1); color: var(--accent-cyan); }
+        .voice-icon { font-size: 1.5rem; margin-bottom: 5px; display: block; }
+        .voice-name { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .controls { display: flex; gap: 15px; flex-wrap: wrap; }
         .btn {
-            flex: 1;
-            min-width: 150px;
-            background: linear-gradient(180deg, #2a2a3a 0%, #1a1a2a 100%);
-            border: 1px solid #3a3a4a;
-            color: var(--text);
-            padding: 15px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            flex: 1; min-width: 150px; background: linear-gradient(180deg, #2a2a3a, #1a1a2a);
+            border: 1px solid #3a3a4a; color: var(--text); padding: 15px 24px; border-radius: 8px;
+            cursor: pointer; font-size: 0.9rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 1px; transition: all 0.2s;
         }
-
-        .btn:hover {
-            background: linear-gradient(180deg, #3a3a4a 0%, #2a2a3a 100%);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-        }
-
-        .btn-generate {
-            background: linear-gradient(180deg, var(--accent-magenta) 0%, #cc00cc 100%);
-            border-color: var(--accent-magenta);
-        }
-
-        .btn-generate:hover {
-            box-shadow: 0 0 25px rgba(255, 0, 255, 0.4);
-        }
-
-        .btn-generate:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .audio-section {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #2a2a3a;
-            display: none;
-        }
-
-        .audio-section.visible {
-            display: block;
-        }
-
-        .audio-player {
-            width: 100%;
-            margin-top: 15px;
-            accent-color: var(--accent-cyan);
-        }
-
-        .audio-label {
-            color: var(--accent-green);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .status {
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 6px;
-            text-align: center;
-            font-size: 0.85rem;
-            display: none;
-        }
-
-        .status.visible {
-            display: block;
-        }
-
-        .status.loading {
-            background: rgba(255, 102, 0, 0.2);
-            border: 1px solid var(--accent-orange);
-            color: var(--accent-orange);
-        }
-
-        .status.error {
-            background: rgba(255, 51, 51, 0.2);
-            border: 1px solid #ff3333;
-            color: #ff3333;
-        }
-
-        .status.success {
-            background: rgba(0, 255, 102, 0.2);
-            border: 1px solid var(--accent-green);
-            color: var(--accent-green);
-        }
-
-        .quick-texts {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .quick-btn {
-            background: var(--bg-light);
-            border: 1px solid #2a2a3a;
-            color: var(--text-dim);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .quick-btn:hover {
-            border-color: var(--accent-cyan);
-            color: var(--accent-cyan);
-        }
-
-        @media (max-width: 500px) {
-            .voice-grid { grid-template-columns: repeat(2, 1fr); }
-            .main-container { padding: 20px; }
-        }
+        .btn:hover { border-color: var(--accent-cyan); box-shadow: 0 0 20px rgba(0, 255, 255, 0.2); }
+        .btn-generate { background: linear-gradient(180deg, var(--accent-magenta), #cc00cc); border-color: var(--accent-magenta); }
+        .btn-generate:hover { box-shadow: 0 0 25px rgba(255, 0, 255, 0.4); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .status { margin-top: 15px; padding: 12px; border-radius: 6px; text-align: center; font-size: 0.85rem; display: none; }
+        .status.visible { display: block; }
+        .status.loading { background: rgba(255, 102, 0, 0.2); border: 1px solid #ff6600; color: #ff6600; }
+        .status.success { background: rgba(0, 255, 102, 0.2); border: 1px solid var(--accent-green); color: var(--accent-green); }
+        .status.error { background: rgba(255, 51, 51, 0.2); border: 1px solid #ff3333; color: #ff3333; }
+        .quick-texts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .quick-btn { background: var(--bg-light); border: 1px solid #2a2a3a; color: var(--text-dim); padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; }
+        .quick-btn:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
     </style>
 </head>
 <body>
     <h1>🎤 RTBNXH Voice Lab</h1>
-    <div class="subtitle">AI Speech Synthesis</div>
+    <div class="subtitle">Browser Speech Synthesis</div>
 
     <div class="main-container">
         <div class="input-section">
             <label>Enter Your Text</label>
-            <textarea id="textInput" placeholder="Type something here... The future of music is on-chain."></textarea>
+            <textarea id="textInput" placeholder="Type something here..."></textarea>
             <div class="quick-texts">
                 <button class="quick-btn" onclick="setText('RTBNXH. Craft with intent. Own the outcome.')">RTBNXH</button>
                 <button class="quick-btn" onclick="setText('Welcome to the future of music production.')">Welcome</button>
@@ -298,24 +116,24 @@
                     <span class="voice-icon">🎤</span>
                     <span class="voice-name">British</span>
                 </div>
-                <div class="voice-btn" data-voice="neutral" onclick="selectVoice(this)">
-                    <span class="voice-icon">🎤</span>
-                    <span class="voice-name">Neutral</span>
+                <div class="voice-btn" data-voice="deep" onclick="selectVoice(this)">
+                    <span class="voice-icon">🎸</span>
+                    <span class="voice-name">Deep</span>
                 </div>
-                <div class="voice-btn" data-voice="robot" onclick="selectVoice(this)">
-                    <span class="voice-icon">🤖</span>
-                    <span class="voice-name">Robot</span>
+                <div class="voice-btn" data-voice="fast" onclick="selectVoice(this)">
+                    <span class="voice-icon">⚡</span>
+                    <span class="voice-name">Fast</span>
                 </div>
-                <div class="voice-btn" data-voice="smooth" onclick="selectVoice(this)">
-                    <span class="voice-icon">🌊</span>
-                    <span class="voice-name">Smooth</span>
+                <div class="voice-btn" data-voice="slow" onclick="selectVoice(this)">
+                    <span class="voice-icon">🐢</span>
+                    <span class="voice-name">Slow</span>
                 </div>
             </div>
         </div>
 
         <div class="controls">
             <button class="btn btn-generate" id="generateBtn" onclick="generateSpeech()">
-                <span>⚡</span> Generate
+                <span>⚡</span> Speak
             </button>
             <button class="btn" onclick="clearAll()">
                 <span>🗑️</span> Clear
@@ -323,76 +141,22 @@
         </div>
 
         <div class="status" id="status"></div>
-
-        <div class="audio-section" id="audioSection">
-            <div class="audio-label">✓ Generated Audio</div>
-            <audio class="audio-player" id="audioPlayer" controls></audio>
-        </div>
     </div>
 
     <script>
-        // User provides their own HuggingFace token for privacy
-        let userToken = '';
-
-        // Use browser's built-in SpeechSynthesis API (no API key needed!)
-        function generateWithBrowserSpeech(text, voiceType) {
-            return new Promise((resolve, reject) => {
-                if (!('speechSynthesis' in window)) {
-                    reject(new Error('Browser does not support speech synthesis'));
-                    return;
-                }
-
-                // Stop any current speech
-                window.speechSynthesis.cancel();
-
-                const utterance = new SpeechSynthesisUtterance(text);
-                
-                // Set voice based on type
-                const voices = window.speechSynthesis.getVoices();
-                
-                if (voiceType === 'male') {
-                    utterance.voice = voices.find(v => v.name.includes('Male') && v.lang.startsWith('en')) || voices[0];
-                } else if (voiceType === 'female') {
-                    utterance.voice = voices.find(v => v.name.includes('Female') && v.lang.startsWith('en')) || voices[0];
-                } else if (voiceType === 'british') {
-                    utterance.voice = voices.find(v => v.name.includes('UK') || v.name.includes('British')) || voices[0];
-                } else if (voiceType === 'robot') {
-                    utterance.voice = voices.find(v => v.name.includes('Computer') || v.name.includes('SAM')) || voices[0];
-                } else {
-                    utterance.voice = voices[0];
-                }
-
-                utterance.rate = 1;
-                utterance.pitch = 1;
-                utterance.volume = 1;
-
-                // Play the speech
-                window.speechSynthesis.speak(utterance);
-                
-                resolve(); // No audio to return since we're playing directly
-            });
-        }
-        
-        // Voice configurations - using models that work with HF Inference API
-        const VOICES = [
-            { id: 'male', name: 'Male', model: 'microsoft/speecht5_tts', icon: '🎤' },
-            { id: 'female', name: 'Female', model: 'microsoft/speecht5_tts', icon: '🎤' },
-            { id: 'british', name: 'British', model: 'microsoft/speecht5_tts', icon: '🎤' },
-            { id: 'neutral', name: 'Neutral', model: 'microsoft/speecht5_tts', icon: '🎤' },
-            { id: 'robot', name: 'Robot', model: 'facebook/fastspeech2-en-ljspeech', icon: '🤖' },
-            { id: 'smooth', name: 'Smooth', model: 'facebook/fastspeech2-en-ljspeech', icon: '🌊' }
-        ];
-
         let currentVoiceId = 'male';
+        let voices = [];
 
-        const VOICE_CONFIGS = {
-            'male': { model: 'microsoft/speecht5_tts' },
-            'female': { model: 'microsoft/speecht5_tts' },
-            'british': { model: 'microsoft/speecht5_tts' },
-            'neutral': { model: 'microsoft/speecht5_tts' },
-            'robot': { model: 'facebook/fastspeech2-en-ljspeech' },
-            'smooth': { model: 'facebook/fastspeech2-en-ljspeech' }
-        };
+        // Load voices when page loads
+        function loadVoices() {
+            voices = window.speechSynthesis.getVoices();
+            if (voices.length === 0) {
+                window.speechSynthesis.onvoiceschanged = () => {
+                    voices = window.speechSynthesis.getVoices();
+                };
+            }
+        }
+        loadVoices();
 
         function setText(text) {
             document.getElementById('textInput').value = text;
@@ -416,12 +180,11 @@
 
         function clearAll() {
             document.getElementById('textInput').value = '';
-            document.getElementById('audioSection').classList.remove('visible');
-            document.getElementById('audioPlayer').src = '';
             hideStatus();
+            window.speechSynthesis.cancel();
         }
 
-        async function generateSpeech() {
+        function generateSpeech() {
             const text = document.getElementById('textInput').value.trim();
             if (!text) {
                 showStatus('Please enter some text first', 'error');
@@ -431,72 +194,63 @@
             const btn = document.getElementById('generateBtn');
             btn.disabled = true;
             btn.innerHTML = '<span>⏳</span> Speaking...';
-            
             showStatus('Speaking...', 'loading');
-            document.getElementById('audioSection').classList.remove('visible');
 
             try {
-                // Use browser's built-in speech synthesis
-                await generateWithBrowserSpeech(text, currentVoiceId);
+                window.speechSynthesis.cancel();
+
+                const utterance = new SpeechSynthesisUtterance(text);
                 
-                showStatus('Done!', 'success');
+                // Configure voice based on selection
+                const voiceSettings = {
+                    'male': { rate: 1, pitch: 1 },
+                    'female': { rate: 1, pitch: 1.2 },
+                    'british': { rate: 0.9, pitch: 0.95 },
+                    'deep': { rate: 0.8, pitch: 0.7 },
+                    'fast': { rate: 1.5, pitch: 1 },
+                    'slow': { rate: 0.6, pitch: 1 }
+                };
+                
+                const settings = voiceSettings[currentVoiceId] || voiceSettings['male'];
+                utterance.rate = settings.rate;
+                utterance.pitch = settings.pitch;
+
+                // Try to find a good voice
+                if (voices.length > 0) {
+                    const voiceMap = {
+                        'male': ['Google US English', 'Microsoft David', 'Samantha'],
+                        'female': ['Google US English', 'Microsoft Zira', 'Victoria'],
+                        'british': ['Google UK English', 'Microsoft Hazel'],
+                        'deep': ['Google UK English Male', '低音'],
+                        'fast': ['Google US English'],
+                        'slow': ['Google US English']
+                    };
+                    
+                    const preferred = voiceMap[currentVoiceId] || voiceMap['male'];
+                    utterance.voice = voices.find(v => preferred.some(name => v.name.includes(name))) || voices[0];
+                }
+
+                utterance.onend = () => {
+                    btn.disabled = false;
+                    btn.innerHTML = '<span>⚡</span> Speak';
+                    showStatus('Done!', 'success');
+                };
+
+                utterance.onerror = (e) => {
+                    console.error('Speech error:', e);
+                    btn.disabled = false;
+                    btn.innerHTML = '<span>⚡</span> Speak';
+                    showStatus('Error: ' + e.error, 'error');
+                };
+
+                window.speechSynthesis.speak(utterance);
                 
             } catch (error) {
                 console.error('Error:', error);
-                showStatus('Error: ' + error.message, 'error');
-            } finally {
                 btn.disabled = false;
-                btn.innerHTML = '<span>⚡</span> Generate';
+                btn.innerHTML = '<span>⚡</span> Speak';
+                showStatus('Error: ' + error.message, 'error');
             }
-        }
-
-        async function generateWithModel(text, model) {
-            if (!userToken) {
-                throw new Error('Please click "Apply Token" first');
-            }
-
-            // Use CORS proxy to bypass browser restrictions
-            const proxyUrl = CORS_PROXY + encodeURIComponent('https://api-inference.huggingface.co/models/' + model);
-
-            const response = await fetch(
-                proxyUrl,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': 'Bearer ' + userToken,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        inputs: text
-                    })
-                }
-            );
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('HF Error:', errorText);
-                if (response.status === 401) {
-                    throw new Error('Invalid token. Check and try again.');
-                }
-                if (response.status === 503) {
-                    throw new Error('Model loading... Try again in 20 seconds.');
-                }
-                throw new Error('Error: ' + response.status + ' - Try a different voice.');
-            }
-
-            const arrayBuffer = await response.arrayBuffer();
-            const base64 = arrayBufferToBase64(arrayBuffer);
-            return base64;
-        }
-
-        function arrayBufferToBase64(buffer) {
-            let binary = '';
-            const bytes = new Uint8Array(buffer);
-            const len = bytes.byteLength;
-            for (let i = 0; i < len; i++) {
-                binary += String.fromCharCode(bytes[i]);
-            }
-            return window.btoa(binary);
         }
 
         // Keyboard shortcut
