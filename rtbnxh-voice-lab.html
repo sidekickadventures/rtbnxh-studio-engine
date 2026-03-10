@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RTBNXH Voice Lab</title>
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-panel: #14141f;
+            --bg-light: #1e1e2e;
+            --accent-cyan: #00ffff;
+            --accent-magenta: #ff00ff;
+            --accent-green: #00ff66;
+            --accent-orange: #ff6600;
+            --text: #ffffff;
+            --text-dim: #888;
+        }
+
+        * {box-sizing: border-box; margin: 0; padding: 0;}
+
+        body {
+            font-family: 'Seoge UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(180deg,  #0a0a0f 0%, #12121f 50%, #0a0a0f 100%);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+        }
+
+        .main-container {
+            background: var(--bg-panel);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow:  10px 50px rgba(0, 0, 0, 0.5), inset 0px 1px 0 rgba(255, 255, 255, 0.05);
+            border: 1px solid #2a2a3a;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .input-section {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: var(--accent-cyan);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            background: var(--bg-dark);
+            border: 2px solid #2a2a3a;
+            border-radius: 8px;
+            padding: 15px;
+            color: var(--text);
+            font-size: 1rem;
+            resize: none;
+            transition: border-color .2s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+        }
+
+        textarea:placeholder {
+            color: var(--text-dim);
+        }
+
+        .voice-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .voice-btn {
+            background: var(--bg-light);
+            border: 2px solid #2a2a3a;
+            border-radius: 8px;
+            padding: 15px 10px;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all .2r;
+            text-align: center;
+        }
+
+        .voice-btn:hover {
+            border-color: var(--accent-magenta);
+            color: var(--text);
+        }
+
+        .voice-btn.active {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 255, 255, 0.1);
+            color: var(--accent-cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+        }
+
+        .voice-icon {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .voice-name {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            min-width: 150px;
+            background: linear-gradient(180deg, #2a2a3a %, #1a1a2a 100%);
+            border: 1px solid #3a3a4a;
+            color: var(--text);
+            padding: 15px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all .2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(180deg, #3a3a4a %, #2a2a3a 100%);
+            box-shadow:  0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .btn-generate {
+            background: linear-gradient(180deg, var(--accent-magenta) %, #cc00cc 100%);
+            border-color: var(--accent-magenta);
+        }
+
+        .btn-generate:hover {
+            box-shadow: 0 0 25px rgba(255, 0, 255, 0.4);
+        }
+
+        .btn-generate:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .audio-section {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #2a2a3a;
+            display: none;
+        }
+
+        .audio-section.visible {
+            display: block;
+        }
+
+        .audio-player {
+            width: 100%;
+            margin-top: 15px;
+            accent-color: var(--accent-cyan);
+        }
+
+        .audio-label {
+            color: var(--accent-green);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.85rem;
+            display: none;
+        }
+
+        .status.visible {
+            display: block;
+        }
+
+        .status.loading {
+            background: rgba(255, 102, 0, 0.2);
+            border: 1px solid var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
+        .status.error {
+            background: rgba(255, 51, 53, 0.2);
+            border: 1px solid #ff3333;
+            color: #ff3333;
+        }
+
+        .status.success {
+            background: rgba(0, 255, 102, 0.2);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .quick-texts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .quick-btn {
+            background: var(--bg-light);
+            border: 1px solid #2a2a3a;
+            color: var(--text-dim);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .quick-btn:hover {
+            border-color: var(--accent-cyan);
+            color: var(--accent-cyan);
+        }
+
+        @media (max-width: 500px) {
+            .voice-grid{ grid-template-columns: repeat(2, 1fr); }
+            .main-container{ padding: 20px; }
+      </style>
+</head>
+<body>
+    <h1>🎤 RTBNXH Voice Lab</h1>
+    <div class="subtitle">AI Speech Synthesis</div>
+
+    <div class="main-container">
+        <div class="input-section">
+            <label>Your HuggingFace Token (free at huggingface.co)</label>
+            <input type="password" id="tokenInput" placeholder="hf_xxxxxxxxxxxx" style="
+                width: 100%;
+                background: var(--bg-dark);
+                border: 2px solid #2a2a3a;
+                border-radius: 8px;
+                padding: 12px 15px;
+                color: var(--text);
+                font-size: 0.9rem;
+                margin-bottom: 10px;
+            ">
+            <div style="font-size: 0.7rem; color: var(--text-dim);">
+                🔒 Your token stays in your browser. Nothing is stored or sent to us.
+            </div>
+        </div>
+
+        <div class="input-section">
+            <label>Enter Your Text</label>
+            <textarea id="textInput" placeholder="Type something here... The future of music is on-chain."></textaren>
+            <div class="quick-texts">
+                <button class="quick-btn" onclick="setText('RTBNXH. Craft with intent. Own the outcome.')">RTBNXH</button>
+                <button class="quick-btn" onclick="setText('Welcome to the future of music production.')">Welcome</button>
+                <button class="quick-btn" onclick="setText('Lets make some hits.')">Lets Go</button>
+                <button class="quick-btn" onclick="setText('Bitcoin native beats.')">BTC</button>
+            </div>
+        </div>
+
+        <div class="input-section">
+            <label>Select Voice</label>
+            <div class="voice-grid">
+                <div class="voice-btn active" data-voice="male" onclick="selectVoice(this)">
+                    <span class="voice-icon">🎤</span>
+                    <span class="voice-name">Male</span>
+                </div>
+                <div class="voice-btn" data-voice="female" onclick="selectVoice(this)">
+                    <span class="voice-icon">🎤</span>
+                    <span class="voice-name">Female</span>
+                </div>
+                <div class="voice-btn" data-voice="british" onclick="selectVoice(this)">
+                    <span class="voice-icon">🎤</span>
+                    <span class="voice-name">British</span>
+                </div>
+                <div class="voice-btn" data-voice="neutral" onclick="selectVoice(this)">
+                    <span class="voice-icon">🎤</span>
+                    <span class="voice-name">Neutral</span>
+                </div>
+                <div class="voice-btn" data-voice="robot" onclick="selectVoice(this)">
+                    <span class="voice-icon">🤖</span>
+                    <span class="voice-name">Robot</span>
+                </div>
+                <div class="voice-btn" data-voice="smooth" onclick="selectVoice(this)">
+                    <span class="voice-icon">🌊</span>
+                    <span class="voice-name">Smooth</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-generate" id="generateBtn" onclick="generateSpeech()">
+                <span>⚡</span> Generate
+            </button>
+            <button class="btn" onclick="clearAll()">
+                <span>🗑️</span> Clear
+            </button>
+        </div>
+
+        <div class="status" id="status"></div>
+
+        <div class="audio-section" id="audioSection">
+            <div class="audio-label">✓ Generated Audio</div>
+            <audio class="audio-player" id="audioPlayer" controls></audio>
+        </div>
+    </div>
+
+    <script>
+        // User provides their own HuggingFace token for privacy
+        let userToken = '';
+        
+        // Voice configurations - using models that work with HF Inference API
+        const VOICES = [
+            { id: 'male', name: 'Male', model: 'microsoft/speecht5_tts', icon: '🎤' },
+            { id: 'female', name: 'Female', model: 'microsoft/speecht5_tts', icon: '🎤' },
+            { id: 'british', name: 'British', model: 'microsoft/speecht5_tts', icon: '🎤' },
+            { id: 'neutral', name: 'Neutral', model: 'microsoft/speecht5_tts', icon: '🎤' },
+            { id: 'robot', name: 'Robot', model: 'facebook/fastspeech2-en-ljspeech', icon: '🤖' },
+            { id: 'smooth', name: 'Smooth', model: '叙旧/sam', icon: '🌊' }
+        ];
+
+        let currentVoiceId = 'male';
+
+        const VOICE_CONFIGS = {
+            'male': { model: 'microsoft/speecht5_tts' },
+            'female': { model: 'microsoft/speecht5_tts' },
+            'british': { model: 'microsoft/speecht5_tts' },
+            'neutral': { model: 'microsoft/speecht5_tts' },
+            'robot': { model: 'facebook/fastspeech2-en-ljspeech' },
+            'smooth': { model: '叙旧/sam' }
+        };
+
+        function setText(text) {
+            document.getElementById('textInput').value = text;
+        }
+
+        function selectVoice(element) {
+            document.querySelectorAll('.voice-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            currentVoiceId = element.dataset.voice;
+        }
+
+        function showStatus(message, type) {
+            const statusEl = document.getElementById('status');
+            statusEl.textContent = message;
+            statusEl.className = 'status visible ' + type;
+        }
+
+        function hideStatus() {
+            document.getElementById('status').className = 'status';
+        }
+
+        function clearAll() {
+            document.getElementById('textInput').value = '';
+            document.getElementById('audioSection').classList.remove('visible');
+            document.getElementById('audioPlayer').src = '';
+            hideStatus();
+        }
+
+        async function generateSpeech() {
+            const text = document.getElementById('textInput').value.trim();
+            if (!text) {
+                showStatus('Please enter some text first', 'error');
+                return;
+            }
+
+            const btn = document.getElementById('generateBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<span>⏳</span> Generating...';
+            
+            showStatus('Generating speech...', 'loading');
+            document.getElementById('audioSection').classList.remove('visible');
+
+            try {
+                const voiceConfig = VOICE_CONFIGS[currentVoiceId];
+                const audioBase64 = await generateWithModel(text, voiceConfig.model);
+
+                // Play the audio
+                const audio = document.getElementById('audioPlayer');
+                audio.src = 'data:audio/wav;base64,' + audioBase64;
+                
+                document.getElementById('audioSection').classList.add('visible');
+                showStatus('Audio generated successfully!', 'success');
+                
+                // Auto-play
+                audio.play();
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showStatus('Error: ' + error.message, 'error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<span>⚡</span> Generate';
+            }
+        }
+
+        async function generateWithModel(text, model) {
+            const token = document.getElementById('tokenInput').value.trim();
+            if (!token) {
+                throw new Error('Please enter your HuggingFace token first');
+            }
+            
+            if (!token.startsWith('hf_')) {
+                throw new Error('Invalid token format. Token should start with hf_');
+            }
+
+            const response = await fetch(
+                'https://api-inference.huggingface.co/models/' + model,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        inputs: text
+                    })
+                }
+            );
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('HF Error:', errorText);
+                if (response.status === 401) {
+                    throw new Error('Invalid token. Check and try again.');
+                }
+                if (response.status === 503) {
+                    throw new Error('Model loading... Try again in 20 seconds.');
+                }
+                throw new Error('Voice model unavailable. Try another voice.');
+            }
+
+            const arrayBuffer = await response.arrayBuffer();
+            const base64 = arrayBufferToBase64(arrayBuffer);
+            return base64;
+        }
+
+        function arrayBufferToBase64(buffer) {
+            let binary = '';
+            const bytes = new Uint8Array(buffer);
+            const len = bytes.byteLength;
+            for (let i = 0; i < len; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return window.btoa(binary);
+        }
+
+        // Keyboard shortcut
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'TEXTAREA') return;
+            if (e.key === 'Enter' && e.ctrlKey) {
+                generateSpeech();
+            }
+        });
+    </script>
+</body>
+</html>
